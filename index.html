@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jQueryAir</title>
+
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/datepicker/css/datepicker.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to jQueryAir</h1>
+        <p>You can book your ticket below</p>
+
+        <hr/>
+        <form role="form" action="#">
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input id="destination" class="form-control" type="text" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label for="departureDate">Departure</label>
+                <input id="departureDate" class="form-control" type="text" placeholder="dd-mm-yyyy" data-date-format="dd-mm-yyyy">
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <label for="passengerName">Passenger name</label>
+                <input type="text" class="form-control" id="passengerName">
+            </div>
+
+            <div class="form-group">
+                <label for="passengerSurname">Passenger surname</label>
+                <input type="text" class="form-control" id="passengerSurname">
+            </div>
+
+            <div class="form-group">
+                <label for="emailAddress">Email address</label>
+                <input type="email" class="form-control" id="emailAddress" placeholder="Enter email">
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <label for="seat">Preferred seat</label>
+                <input type="text" id="seat">
+            </div>
+
+            <div class="form-group">
+                <label for="additionalLuggage">Additional luggage</label>
+                <input type="number" class="form-control" id="additionalLuggage" min="0" max="5" value="0">
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="priority"> Priority boarding
+                </label>
+            </div>
+
+            <hr/>
+
+            <div class="alert alert-info"><strong>Total cost:</strong> <span id="totalCost">-</span>&#8364</div>
+
+            <hr/>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="terms"> I accept terms and conditions
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Book ticket</button>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="summaryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    Your name is <strong class="name"></strong> and your email is <strong class="email"></strong>.
+
+                    You are booking a flight to <strong class="destination"></strong> on <strong class="departure"></strong>.
+
+                    Your preferred seat is <strong class="seat"></strong><span class="luggage"> and you are taking <strong class="luggage_count"></strong> bags with you</span>.
+
+                    <span class="priority">You have bought <strong>priority boarding</strong>.</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="vendor/jquery.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/datepicker/js/bootstrap-datepicker.js"></script>
+<script src="vendor/typeahead/typeahead.js"></script>
+<script src="vendor/seatChooser/seatChooser.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
