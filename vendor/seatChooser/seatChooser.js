@@ -47,8 +47,7 @@
             return;
         }
 
-        this.setSeat(column, row);
-        selectSeat.apply(this, [column, row]);
+        this.setSeatByColumnAndRow(column, row);
     }
 
     function getSeatName(column, row) {
@@ -59,13 +58,33 @@
         return (column + 1) + rowNames[row];
     }
 
+    function decodeSeatName(seatName) {
+        var column = parseInt(seatName);
+        var rowName = seatName[seatName.length-1];
+        var rowNames = {
+            'F': 0,
+            'E': 1,
+            'D': 2,
+            'C': 3,
+            'B': 4,
+            'A': 5
+        };
+
+        if(isNaN(column) || rowNames[rowName] === undefined) {
+            return false;
+        }
+
+        return {
+            column: column - 1,
+            row: rowNames[rowName]
+        };
+    }
+
     SeatChooser.prototype = {
         init: function () {
             if(!this.$element.is('input[type=text], input[type=hidden]')) {
                 throw "seatChooser can only be used with input[type=text] or input[type=hidden]";
             }
-
-            this.$element.attr('type', 'hidden');
 
             var $img = $('<img>').attr('src', this.settings.picture);
             var $div = $('<div>').css({
@@ -91,7 +110,19 @@
 
             return null;
         },
-        setSeat: function(column, row) {
+        setSeat: function(seat) {
+            var output = decodeSeatName(seat);
+            if(output) {
+                return this.setSeatByColumnAndRow(output.column, output.row);
+            }
+
+            return false;
+        },
+        setSeatByColumnAndRow: function(column, row) {
+            if(column < 0 || column > 24 || row < 0 || row > 5) {
+                return false;
+            }
+
             this.currentSeat = {
                 column: column,
                 row: row
@@ -99,6 +130,12 @@
 
             this.$element.val(getSeatName(column, row));
             this.$element.trigger('seatChanged', getSeatName(column, row));
+            selectSeat.apply(this, [column, row]);
+
+            return true;
+        },
+        isValidSeat: function(seat) {
+            return decodeSeatName(seat) ? true : false;
         }
     };
 

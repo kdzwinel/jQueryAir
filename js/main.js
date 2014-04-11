@@ -100,7 +100,22 @@
 
     $seat.on('seatChanged', function() {
         clearError(this);
+    }).on('change', function() {
+        var seatChooser = $(this).data('plugin_seatChooser');
+        var seatName = $(this).val();
+
+        clearError(this);
+
+        if(!seatChooser.setSeat(seatName)) {
+            setError(this, 'Invalid seat ID');
+        }
     });
+
+    function isValidSeat(seat) {
+        var seatChooser = $seat.data('plugin_seatChooser');
+
+        return seatChooser.isValidSeat(seat);
+    }
 
     $surname.on('change', function() {
         clearError(this);
@@ -148,6 +163,11 @@
 
         if (!isValidDestination($destination.val())) {
             setError($destination.get(0), 'Invalid destination');
+            valid = false;
+        }
+
+        if (!isValidSeat($seat.val())) {
+            setError($seat.get(0), 'Invalid seat ID');
             valid = false;
         }
 
