@@ -133,6 +133,14 @@
         }
     });
 
+    $termsAccepted.on('change', function() {
+        clearError(this);
+
+        if(!$termsAccepted.is(':checked')) {
+            setError($termsAccepted.get(0), 'You have to accept terms and conditions');
+        }
+    })
+
     $('form').on('submit', function() {
         var valid = true;
 
@@ -245,7 +253,7 @@
      ERROR HANDLING
      *************************/
     function clearError(elem) {
-        var $formGroup = $(elem).closest('.form-group');
+        var $formGroup = $(elem).closest('.form-group, .checkbox');
         var $controlLabel = $formGroup.find('.control-label');
 
         $formGroup.removeClass('has-error');
